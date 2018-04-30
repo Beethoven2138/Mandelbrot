@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <float.h>
 #include <assert.h>
+#include <string.h>
 
 #define WIDTH 800
 #define HEIGHT 800
@@ -120,12 +121,16 @@ void square(COMPLEX *num)
 
 char in_set(COMPLEX *num, int i_count)
 {
+	COMPLEX tmp;
+	memcpy(&tmp, num, sizeof(COMPLEX));
 	while (i_count > 0)
 	{
 		if (num->x > 1 || num->i > 1 || num->x < -1 || num->i < -1)
 			return i_count;
 		--i_count;
 		square(num);
+		num->i += tmp.i;
+		num->x += tmp.x;
 	}
 	return -1;
 }
